@@ -2,7 +2,7 @@ import pandas as pd
 
 class precess2limitedattr:
     def __init__(self,keylist,title):
-        self.data_set = pd.read_csv('../data/bank-full.csv', delimiter=';')[0:10]
+        self.data_set = pd.read_csv('../data/bank-full.csv', delimiter=';')
         self.keylist = keylist
         self.title = title
         # self.keylist = ['age','job','month','previous','poutcome', 'balance','duration', 'pdays']
