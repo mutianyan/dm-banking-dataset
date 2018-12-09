@@ -1,0 +1,68 @@
+,support,itemsets,length
+0,0.62285,frozenset({'contact_cellular'}),1
+1,0.979775,frozenset({'default_no'}),1
+2,0.600775,frozenset({'housing_yes'}),1
+3,0.82675,frozenset({'loan_no'}),1
+4,0.60965,frozenset({'marital_married'}),1
+5,0.865175,frozenset({'pdays_-1'}),1
+6,0.865175,frozenset({'poutcome_unknown'}),1
+7,0.865175,frozenset({'previous_0'}),1
+8,0.9276,frozenset({'y_no'}),1
+9,0.61045,"frozenset({'contact_cellular', 'default_no'})",2
+10,0.814025,"frozenset({'loan_no', 'default_no'})",2
+11,0.84635,"frozenset({'default_no', 'pdays_-1'})",2
+12,0.84635,"frozenset({'default_no', 'poutcome_unknown'})",2
+13,0.84635,"frozenset({'previous_0', 'default_no'})",2
+14,0.9086,"frozenset({'default_no', 'y_no'})",2
+15,0.715575,"frozenset({'loan_no', 'pdays_-1'})",2
+16,0.715575,"frozenset({'loan_no', 'poutcome_unknown'})",2
+17,0.715575,"frozenset({'previous_0', 'loan_no'})",2
+18,0.76385,"frozenset({'loan_no', 'y_no'})",2
+19,0.865175,"frozenset({'poutcome_unknown', 'pdays_-1'})",2
+20,0.865175,"frozenset({'previous_0', 'pdays_-1'})",2
+21,0.8038,"frozenset({'y_no', 'pdays_-1'})",2
+22,0.865175,"frozenset({'previous_0', 'poutcome_unknown'})",2
+23,0.8038,"frozenset({'y_no', 'poutcome_unknown'})",2
+24,0.8038,"frozenset({'previous_0', 'y_no'})",2
+25,0.70375,"frozenset({'loan_no', 'default_no', 'pdays_-1'})",3
+26,0.70375,"frozenset({'loan_no', 'default_no', 'poutcome_unknown'})",3
+27,0.70375,"frozenset({'previous_0', 'loan_no', 'default_no'})",3
+28,0.751975,"frozenset({'loan_no', 'default_no', 'y_no'})",3
+29,0.84635,"frozenset({'default_no', 'poutcome_unknown', 'pdays_-1'})",3
+30,0.84635,"frozenset({'previous_0', 'default_no', 'pdays_-1'})",3
+31,0.7861,"frozenset({'default_no', 'y_no', 'pdays_-1'})",3
+32,0.84635,"frozenset({'previous_0', 'default_no', 'poutcome_unknown'})",3
+33,0.7861,"frozenset({'poutcome_unknown', 'default_no', 'y_no'})",3
+34,0.7861,"frozenset({'previous_0', 'default_no', 'y_no'})",3
+35,0.715575,"frozenset({'loan_no', 'poutcome_unknown', 'pdays_-1'})",3
+36,0.715575,"frozenset({'previous_0', 'loan_no', 'pdays_-1'})",3
+37,0.662275,"frozenset({'loan_no', 'y_no', 'pdays_-1'})",3
+38,0.715575,"frozenset({'previous_0', 'loan_no', 'poutcome_unknown'})",3
+39,0.662275,"frozenset({'loan_no', 'y_no', 'poutcome_unknown'})",3
+40,0.662275,"frozenset({'previous_0', 'loan_no', 'y_no'})",3
+41,0.865175,"frozenset({'previous_0', 'poutcome_unknown', 'pdays_-1'})",3
+42,0.8038,"frozenset({'y_no', 'poutcome_unknown', 'pdays_-1'})",3
+43,0.8038,"frozenset({'previous_0', 'y_no', 'pdays_-1'})",3
+44,0.8038,"frozenset({'previous_0', 'y_no', 'poutcome_unknown'})",3
+45,0.70375,"frozenset({'loan_no', 'default_no', 'poutcome_unknown', 'pdays_-1'})",4
+46,0.70375,"frozenset({'previous_0', 'loan_no', 'default_no', 'pdays_-1'})",4
+47,0.65125,"frozenset({'loan_no', 'default_no', 'y_no', 'pdays_-1'})",4
+48,0.70375,"frozenset({'previous_0', 'loan_no', 'default_no', 'poutcome_unknown'})",4
+49,0.65125,"frozenset({'poutcome_unknown', 'loan_no', 'default_no', 'y_no'})",4
+50,0.65125,"frozenset({'previous_0', 'loan_no', 'default_no', 'y_no'})",4
+51,0.84635,"frozenset({'previous_0', 'default_no', 'poutcome_unknown', 'pdays_-1'})",4
+52,0.7861,"frozenset({'poutcome_unknown', 'default_no', 'y_no', 'pdays_-1'})",4
+53,0.7861,"frozenset({'previous_0', 'default_no', 'y_no', 'pdays_-1'})",4
+54,0.7861,"frozenset({'previous_0', 'poutcome_unknown', 'default_no', 'y_no'})",4
+55,0.715575,"frozenset({'previous_0', 'loan_no', 'poutcome_unknown', 'pdays_-1'})",4
+56,0.662275,"frozenset({'loan_no', 'y_no', 'poutcome_unknown', 'pdays_-1'})",4
+57,0.662275,"frozenset({'previous_0', 'loan_no', 'y_no', 'pdays_-1'})",4
+58,0.662275,"frozenset({'previous_0', 'loan_no', 'y_no', 'poutcome_unknown'})",4
+59,0.8038,"frozenset({'previous_0', 'y_no', 'poutcome_unknown', 'pdays_-1'})",4
+60,0.70375,"frozenset({'default_no', 'loan_no', 'previous_0', 'pdays_-1', 'poutcome_unknown'})",5
+61,0.65125,"frozenset({'default_no', 'loan_no', 'pdays_-1', 'y_no', 'poutcome_unknown'})",5
+62,0.65125,"frozenset({'default_no', 'loan_no', 'previous_0', 'pdays_-1', 'y_no'})",5
+63,0.65125,"frozenset({'default_no', 'loan_no', 'previous_0', 'y_no', 'poutcome_unknown'})",5
+64,0.7861,"frozenset({'default_no', 'previous_0', 'pdays_-1', 'y_no', 'poutcome_unknown'})",5
+65,0.662275,"frozenset({'loan_no', 'previous_0', 'pdays_-1', 'y_no', 'poutcome_unknown'})",5
+66,0.65125,"frozenset({'default_no', 'loan_no', 'previous_0', 'pdays_-1', 'y_no', 'poutcome_unknown'})",6

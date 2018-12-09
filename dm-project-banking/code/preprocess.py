@@ -1,21 +1,11 @@
+# this file produces the preprocessed file with all the categorical values converting to binary, added a lot of columns
+# the file created is named "afterTransform.csv"
 import csv
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder
 import numpy as np
-from sklearn.model_selection import TimeSeriesSplit
-
-"""
-fp = open("../bank.csv", "r")
-fp1 = open("shortfile", "w")
-for i, line in enumerate(fp):
-    if i <= 31:
-    	fp1.write(line)
-    elif i > 31:
-        break
-fp.close()
-fp1.close()
-
-"""
+#from sklearn.model_selection import TimeSeriesSplit
+#from split.py import rolling_window_split(data,W,K)
 
 # bank.csv from May 2008 to November 2010
 
@@ -26,7 +16,7 @@ def transforForamt(dataset, diction):
         dataset[i] = diction[dataset[i]]
     return dataset
 
-
+# need to think of a way to treat numeric attibutes like campaign...
 
 
 dic={"yes":1,"no":0}
@@ -76,17 +66,13 @@ one_hot=pd.get_dummies(s) # return type is dataFrame
 data_set = data_set.join(one_hot)
 data_set = data_set.drop('poutcome',axis=1)
 
-# ?
+# ? depends on how to treat the month, in order or no
 s = data_set.month
 one_hot=pd.get_dummies(s) # return type is dataFrame
 data_set = data_set.join(one_hot)
 data_set = data_set.drop('month',axis=1)
 
 
-#print(list(data_set))
-
-
-"""
 # dynamic split 
 y_df = data_set.y
 data_set.drop('y', axis= 1)
@@ -95,11 +81,9 @@ X_df = data_set
 y = np.array(y_df)
 X = np.array(X_df)
 
-print(y)
-print(X)
-
 #X = np.array([[1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]])
 #y = np.array([1, 2, 3, 4, 5, 6])
+"""
 tscv = TimeSeriesSplit(n_splits=2, max_train_size = 4)
 print(tscv)  
 for train_index, test_index in tscv.split(X):
@@ -108,6 +92,11 @@ for train_index, test_index in tscv.split(X):
 	X_train, X_test = X[train_index], X[test_index]
 	y_train, y_test = y[train_index], y[test_index]
 
+for train_index, test_index in rolling_window_split(data_set, 20000,):
+    # use model to predict 
+    print("TRAIN:", train_index, "TEST:", test_index)
+    X_train, X_test = X[train_index], X[test_index]
+    y_train, y_test = y[train_index], y[test_index]
 """
 # split up the data set 
 #https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html
