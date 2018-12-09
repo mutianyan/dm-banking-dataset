@@ -6,6 +6,12 @@ from mlxtend.frequent_patterns import association_rules
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 
+
+def getSupport(lst_check):
+	for (lst_val, sup) in lst:
+		if lst_check == lst_val:
+			return sup
+
 dataset = pd.read_csv('../data/bank-full.csv', delimiter = ';', nrows = 40000)
 # filter out all none y=yes rows
 dataset = dataset.loc[dataset['y'] == 'yes']
@@ -34,7 +40,7 @@ te_ary = te.fit(array).transform(array)
 
 # (unnecessary step) convert back to dataframe from numpy array
 df = pd.DataFrame(te_ary, columns=te.columns_)
-frequent_itemsets = apriori(df, use_colnames=True, min_support = 0.4)
+frequent_itemsets = apriori(df, use_colnames=True, min_support = 0.5)
 
 # generate the length column 
 frequent_itemsets['length'] = frequent_itemsets['itemsets'].apply(lambda x: len(x))
@@ -53,6 +59,42 @@ frozen_set=frequent_itemsets_drawing['itemsets']
 frequent_itemsets_drawing_list = [list(x) for x in frozen_set if len(x) >= 2 ]
 #print(frequent_itemsets_drawing_list)
 
+#frequent_itemsets_drawing_list_of_tuple = list(map(tuple, frequent_itemsets_drawing_list))
+#print(frequent_itemsets_drawing_list_of_tuple)
+
+########## draw #########
+
+# find all the attributes appears, assemble them in a list
+attributes_drawing_list = []
+for lst in frequent_itemsets_drawing_list:
+	for val in lst:
+		if val not in attributes_drawing_list:
+			attributes_drawing_list.append(val)
+
+#print(attributes_drawing_list)
+
+# generate a dictionary, {[poutcome_1, ...] : support values}
+
+support_vals = frequent_itemsets_drawing['support']
+
+lst =list(zip(frequent_itemsets_drawing_list, support_vals))
+
+
+# store in to csv
+I = pd.Index(attributes_drawing_list, name="rows")
+C = pd.Index(frequent_itemsets_drawing_list, name="columns")
+d_f = pd.DataFrame(index=C, columns=I)
+#print(d_f)
+#d_f.a.fillna(value=0, inplace=True)
+# write in the values
+for fp in frequent_itemsets_drawing_list:
+	for item in fp:
+		d_f.loc[:,item] = getSupport(fp)
+		#print(1)
+
+#d_f.loc[['loan_no', 'default_no']] = 0
+
+d_f.to_csv("../graphs/frequent_patterns_y_yes.csv")
 
 # generate strong association rules
 
