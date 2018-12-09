@@ -17,7 +17,7 @@ class precess2limitedattr:
         dic_job['entrepreneur']=3
         dic_job['blue-collar']=4
         dic_job['retired']=5
-        dic_job['admin']=6
+        dic_job['admin.']=6
         dic_job['services']=7
         dic_job['self-employed']=8
         dic_job['unemployed']=9
