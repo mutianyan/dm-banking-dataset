@@ -1,0 +1,115 @@
+,support,itemsets,length
+21,0.8570441988950276,"frozenset({'loan_no', 'default_no'})",2
+87,0.8477209944751382,"frozenset({'pdays_-1', 'poutcome_unknown', 'previous_0'})",3
+44,0.8477209944751382,"frozenset({'poutcome_unknown', 'previous_0'})",2
+43,0.8477209944751382,"frozenset({'pdays_-1', 'previous_0'})",2
+42,0.8477209944751382,"frozenset({'pdays_-1', 'poutcome_unknown'})",2
+73,0.8321823204419889,"frozenset({'default_no', 'pdays_-1', 'previous_0'})",3
+24,0.8321823204419889,"frozenset({'poutcome_unknown', 'default_no'})",2
+23,0.8321823204419889,"frozenset({'pdays_-1', 'default_no'})",2
+72,0.8321823204419889,"frozenset({'pdays_-1', 'poutcome_unknown', 'default_no'})",3
+74,0.8321823204419889,"frozenset({'default_no', 'poutcome_unknown', 'previous_0'})",3
+110,0.8321823204419889,"frozenset({'default_no', 'poutcome_unknown', 'pdays_-1', 'previous_0'})",4
+25,0.8321823204419889,"frozenset({'default_no', 'previous_0'})",2
+12,0.7589779005524862,"frozenset({'contact_cellular', 'default_no'})",2
+38,0.7361878453038674,"frozenset({'loan_no', 'previous_0'})",2
+113,0.7361878453038674,"frozenset({'pdays_-1', 'poutcome_unknown', 'loan_no', 'previous_0'})",4
+82,0.7361878453038674,"frozenset({'pdays_-1', 'loan_no', 'previous_0'})",3
+37,0.7361878453038674,"frozenset({'poutcome_unknown', 'loan_no'})",2
+81,0.7361878453038674,"frozenset({'pdays_-1', 'poutcome_unknown', 'loan_no'})",3
+83,0.7361878453038674,"frozenset({'poutcome_unknown', 'loan_no', 'previous_0'})",3
+36,0.7361878453038674,"frozenset({'pdays_-1', 'loan_no'})",2
+67,0.7251381215469613,"frozenset({'poutcome_unknown', 'loan_no', 'default_no'})",3
+68,0.7251381215469613,"frozenset({'default_no', 'loan_no', 'previous_0'})",3
+105,0.7251381215469613,"frozenset({'pdays_-1', 'default_no', 'previous_0', 'loan_no'})",4
+106,0.7251381215469613,"frozenset({'default_no', 'poutcome_unknown', 'loan_no', 'previous_0'})",4
+104,0.7251381215469613,"frozenset({'pdays_-1', 'poutcome_unknown', 'loan_no', 'default_no'})",4
+122,0.7251381215469613,"frozenset({'poutcome_unknown', 'loan_no', 'pdays_-1', 'default_no', 'previous_0'})",5
+66,0.7251381215469613,"frozenset({'pdays_-1', 'loan_no', 'default_no'})",3
+14,0.6695441988950276,"frozenset({'contact_cellular', 'loan_no'})",2
+46,0.662292817679558,"frozenset({'contact_cellular', 'loan_no', 'default_no'})",3
+16,0.625,"frozenset({'poutcome_unknown', 'contact_cellular'})",2
+15,0.625,"frozenset({'pdays_-1', 'contact_cellular'})",2
+17,0.625,"frozenset({'contact_cellular', 'previous_0'})",2
+53,0.625,"frozenset({'pdays_-1', 'poutcome_unknown', 'contact_cellular'})",3
+97,0.625,"frozenset({'pdays_-1', 'poutcome_unknown', 'contact_cellular', 'previous_0'})",4
+54,0.625,"frozenset({'pdays_-1', 'contact_cellular', 'previous_0'})",3
+55,0.625,"frozenset({'poutcome_unknown', 'contact_cellular', 'previous_0'})",3
+91,0.6142955801104972,"frozenset({'pdays_-1', 'poutcome_unknown', 'contact_cellular', 'default_no'})",4
+118,0.6142955801104972,"frozenset({'poutcome_unknown', 'pdays_-1', 'default_no', 'previous_0', 'contact_cellular'})",5
+47,0.6142955801104972,"frozenset({'pdays_-1', 'contact_cellular', 'default_no'})",3
+48,0.6142955801104972,"frozenset({'poutcome_unknown', 'contact_cellular', 'default_no'})",3
+49,0.6142955801104972,"frozenset({'default_no', 'contact_cellular', 'previous_0'})",3
+92,0.6142955801104972,"frozenset({'default_no', 'contact_cellular', 'pdays_-1', 'previous_0'})",4
+93,0.6142955801104972,"frozenset({'default_no', 'poutcome_unknown', 'contact_cellular', 'previous_0'})",4
+119,0.5424723756906077,"frozenset({'poutcome_unknown', 'loan_no', 'pdays_-1', 'previous_0', 'contact_cellular'})",5
+50,0.5424723756906077,"frozenset({'pdays_-1', 'contact_cellular', 'loan_no'})",3
+52,0.5424723756906077,"frozenset({'contact_cellular', 'loan_no', 'previous_0'})",3
+51,0.5424723756906077,"frozenset({'poutcome_unknown', 'contact_cellular', 'loan_no'})",3
+94,0.5424723756906077,"frozenset({'pdays_-1', 'poutcome_unknown', 'contact_cellular', 'loan_no'})",4
+96,0.5424723756906077,"frozenset({'poutcome_unknown', 'contact_cellular', 'loan_no', 'previous_0'})",4
+95,0.5424723756906077,"frozenset({'pdays_-1', 'contact_cellular', 'loan_no', 'previous_0'})",4
+116,0.5359116022099447,"frozenset({'loan_no', 'pdays_-1', 'default_no', 'previous_0', 'contact_cellular'})",5
+115,0.5359116022099447,"frozenset({'poutcome_unknown', 'loan_no', 'pdays_-1', 'default_no', 'contact_cellular'})",5
+90,0.5359116022099447,"frozenset({'default_no', 'contact_cellular', 'loan_no', 'previous_0'})",4
+89,0.5359116022099447,"frozenset({'poutcome_unknown', 'contact_cellular', 'loan_no', 'default_no'})",4
+88,0.5359116022099447,"frozenset({'pdays_-1', 'contact_cellular', 'loan_no', 'default_no'})",4
+124,0.5359116022099447,"frozenset({'poutcome_unknown', 'loan_no', 'pdays_-1', 'default_no', 'previous_0', 'contact_cellular'})",6
+117,0.5359116022099447,"frozenset({'poutcome_unknown', 'loan_no', 'default_no', 'previous_0', 'contact_cellular'})",5
+22,0.5034530386740331,"frozenset({'marital_married', 'default_no'})",2
+20,0.49620165745856354,"frozenset({'housing_yes', 'default_no'})",2
+19,0.48687845303867405,"frozenset({'default_no', 'housing_no'})",2
+18,0.47997237569060774,"frozenset({'education_secondary', 'default_no'})",2
+31,0.4488950276243094,"frozenset({'pdays_-1', 'housing_no'})",2
+33,0.4488950276243094,"frozenset({'previous_0', 'housing_no'})",2
+32,0.4488950276243094,"frozenset({'poutcome_unknown', 'housing_no'})",2
+80,0.4488950276243094,"frozenset({'poutcome_unknown', 'previous_0', 'housing_no'})",3
+112,0.4488950276243094,"frozenset({'pdays_-1', 'poutcome_unknown', 'previous_0', 'housing_no'})",4
+79,0.4488950276243094,"frozenset({'pdays_-1', 'previous_0', 'housing_no'})",3
+78,0.4488950276243094,"frozenset({'pdays_-1', 'poutcome_unknown', 'housing_no'})",3
+35,0.44129834254143646,"frozenset({'marital_married', 'loan_no'})",2
+62,0.44129834254143646,"frozenset({'poutcome_unknown', 'default_no', 'housing_no'})",3
+63,0.44129834254143646,"frozenset({'default_no', 'previous_0', 'housing_no'})",3
+121,0.44129834254143646,"frozenset({'poutcome_unknown', 'pdays_-1', 'default_no', 'previous_0', 'housing_no'})",5
+101,0.44129834254143646,"frozenset({'pdays_-1', 'poutcome_unknown', 'default_no', 'housing_no'})",4
+102,0.44129834254143646,"frozenset({'default_no', 'pdays_-1', 'previous_0', 'housing_no'})",4
+61,0.44129834254143646,"frozenset({'pdays_-1', 'default_no', 'housing_no'})",3
+103,0.44129834254143646,"frozenset({'default_no', 'poutcome_unknown', 'previous_0', 'housing_no'})",4
+30,0.43922651933701656,"frozenset({'loan_no', 'housing_no'})",2
+65,0.43646408839779005,"frozenset({'marital_married', 'loan_no', 'default_no'})",3
+60,0.43439226519337015,"frozenset({'loan_no', 'default_no', 'housing_no'})",3
+86,0.4305939226519337,"frozenset({'marital_married', 'poutcome_unknown', 'previous_0'})",3
+41,0.4305939226519337,"frozenset({'marital_married', 'previous_0'})",2
+114,0.4305939226519337,"frozenset({'pdays_-1', 'marital_married', 'poutcome_unknown', 'previous_0'})",4
+85,0.4305939226519337,"frozenset({'pdays_-1', 'marital_married', 'previous_0'})",3
+40,0.4305939226519337,"frozenset({'marital_married', 'poutcome_unknown'})",2
+39,0.4305939226519337,"frozenset({'pdays_-1', 'marital_married'})",2
+84,0.4305939226519337,"frozenset({'pdays_-1', 'marital_married', 'poutcome_unknown'})",3
+34,0.42955801104972374,"frozenset({'loan_no', 'housing_yes'})",2
+11,0.4285220994475138,"frozenset({'campaign_1', 'default_no'})",2
+108,0.42472375690607733,"frozenset({'default_no', 'marital_married', 'pdays_-1', 'previous_0'})",4
+109,0.42472375690607733,"frozenset({'default_no', 'marital_married', 'poutcome_unknown', 'previous_0'})",4
+123,0.42472375690607733,"frozenset({'poutcome_unknown', 'pdays_-1', 'default_no', 'marital_married', 'previous_0'})",5
+107,0.42472375690607733,"frozenset({'pdays_-1', 'marital_married', 'poutcome_unknown', 'default_no'})",4
+71,0.42472375690607733,"frozenset({'default_no', 'marital_married', 'previous_0'})",3
+69,0.42472375690607733,"frozenset({'pdays_-1', 'marital_married', 'default_no'})",3
+70,0.42472375690607733,"frozenset({'marital_married', 'poutcome_unknown', 'default_no'})",3
+64,0.42265193370165743,"frozenset({'loan_no', 'housing_yes', 'default_no'})",3
+77,0.41470994475138123,"frozenset({'poutcome_unknown', 'education_secondary', 'previous_0'})",3
+76,0.41470994475138123,"frozenset({'pdays_-1', 'education_secondary', 'previous_0'})",3
+28,0.41470994475138123,"frozenset({'poutcome_unknown', 'education_secondary'})",2
+29,0.41470994475138123,"frozenset({'education_secondary', 'previous_0'})",2
+75,0.41470994475138123,"frozenset({'pdays_-1', 'poutcome_unknown', 'education_secondary'})",3
+27,0.41470994475138123,"frozenset({'pdays_-1', 'education_secondary'})",2
+111,0.41470994475138123,"frozenset({'pdays_-1', 'poutcome_unknown', 'education_secondary', 'previous_0'})",4
+26,0.41125690607734805,"frozenset({'loan_no', 'education_secondary'})",2
+13,0.4098756906077348,"frozenset({'contact_cellular', 'housing_no'})",2
+59,0.40607734806629836,"frozenset({'default_no', 'education_secondary', 'previous_0'})",3
+100,0.40607734806629836,"frozenset({'default_no', 'poutcome_unknown', 'education_secondary', 'previous_0'})",4
+57,0.40607734806629836,"frozenset({'pdays_-1', 'education_secondary', 'default_no'})",3
+98,0.40607734806629836,"frozenset({'pdays_-1', 'poutcome_unknown', 'education_secondary', 'default_no'})",4
+99,0.40607734806629836,"frozenset({'default_no', 'pdays_-1', 'education_secondary', 'previous_0'})",4
+120,0.40607734806629836,"frozenset({'poutcome_unknown', 'pdays_-1', 'default_no', 'education_secondary', 'previous_0'})",5
+58,0.40607734806629836,"frozenset({'poutcome_unknown', 'education_secondary', 'default_no'})",3
+56,0.40435082872928174,"frozenset({'loan_no', 'education_secondary', 'default_no'})",3
+45,0.4036602209944751,"frozenset({'contact_cellular', 'default_no', 'housing_no'})",3
