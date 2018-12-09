@@ -87,9 +87,9 @@ d_f = pd.DataFrame(index=C, columns=I)
 #print(d_f)
 #d_f.a.fillna(value=0, inplace=True)
 # write in the values
-for fp in frequent_itemsets_drawing_list:
+for fp, index in zip(frequent_itemsets_drawing_list, range(len(frequent_itemsets_drawing_list))):
 	for item in fp:
-		d_f.loc[:,item] = getSupport(fp)
+		d_f.loc[index,item] = getSupport(fp)
 		#print(1)
 
 #d_f.loc[['loan_no', 'default_no']] = 0

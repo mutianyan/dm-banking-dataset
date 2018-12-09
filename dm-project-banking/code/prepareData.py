@@ -35,5 +35,5 @@ for col in columns:
 
 # discretion
 X = data_set['age']
-est = preprocessing.KBinsDiscretizer(n_bins=9, encode='ordinal').fit(X)
+est = KBinsDiscretizer(n_bins=9, encode='ordinal').fit(X)
 est.transform(X) 
