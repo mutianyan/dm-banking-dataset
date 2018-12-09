@@ -1,9 +1,10 @@
 import pandas as pd
 
 class precess2limitedattr:
-    def __init__(self,keylist):
-        self.data_set = pd.read_csv('../data/bank-full.csv', delimiter=';')
+    def __init__(self,keylist,title):
+        self.data_set = pd.read_csv('../data/bank-full.csv', delimiter=';')[0:10]
         self.keylist = keylist
+        self.title = title
         # self.keylist = ['age','job','month','previous','poutcome', 'balance','duration', 'pdays']
 
     def getdata(self):
@@ -56,7 +57,7 @@ class precess2limitedattr:
         dic_month['feb']=2
         dic_month['mar']=3
         dic_month['apr']=4
-        dic_month['mar']=5
+        dic_month['may']=5
         dic_month['jun']=6
         dic_month['jul']=7
         dic_month['aug']=8
@@ -82,12 +83,12 @@ class precess2limitedattr:
                 self.data_set[key][i]=dic[key][self.data_set[key][i]]
 
         label = transform('y')
-        self.data_set.drop('y')
+
 
 
         for key in keys:
             if key not in self.keylist:
-                self.data_set.drop(key)
+                self.data_set = self.data_set.drop(key, axis=1)
                 continue
             if key in ['job','marital','education','default','housing','loan','contact','month','poutcome']:
                 transform(key)
@@ -102,7 +103,14 @@ class precess2limitedattr:
                 self.data_set[key] = self.data_set[key]//120
                 continue
             if key == 'pdays':
-                self.data_set[key] = self.ata_set[key]//30
+                self.data_set[key] = self.data_set[key]//30
                 continue
+        self.data_set.to_csv("../data/" + self.title + ".csv", index=False)
 
         return self.data_set,label
+
+keylist =['age','job','month','previous','poutcome', 'balance','duration', 'pdays']
+title ='age_job_month_previous_poutcome_balance_duration_pdays'
+data_set = precess2limitedattr(keylist,title)
+data_set.getdata()
+# data_set.to_csv("../data/age_job_month_previous_poutcome_balance_duration_pdays.csv", index = False)
