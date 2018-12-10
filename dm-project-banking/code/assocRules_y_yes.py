@@ -5,6 +5,7 @@ import pandas as pd
 from mlxtend.frequent_patterns import association_rules
 from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
+import numpy as np
 
 
 def getSupport(lst_check):
@@ -57,6 +58,16 @@ frequent_itemsets_drawing.to_csv("../data/FrquentPatterns_y_yes.csv")
 frozen_set=frequent_itemsets_drawing['itemsets']
 
 frequent_itemsets_drawing_list = [list(x) for x in frozen_set if len(x) >= 2 ]
+attr=dataset.keys()
+import numpy as np
+fplist=pd.DataFrame(data=np.zeros((len(frequent_itemsets_drawing_list),len(attr))),columns=attr)
+
+for i in range(len(frequent_itemsets_drawing_list)):
+	for fp in frequent_itemsets_drawing_list[i]:
+		fplist.loc[i,fp.split('_')[0]]=999
+
+fplist.to_csv('../data/frequent_patterns_y_yes.csv')
+
 #print(frequent_itemsets_drawing_list)
 
 #frequent_itemsets_drawing_list_of_tuple = list(map(tuple, frequent_itemsets_drawing_list))
