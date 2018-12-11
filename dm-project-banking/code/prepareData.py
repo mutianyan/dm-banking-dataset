@@ -34,6 +34,6 @@ for col in columns:
 # draw box plot to visualize distribution
 
 # discretion
-X = data_set['age']
-est = KBinsDiscretizer(n_bins=9, encode='ordinal').fit(X)
-est.transform(X) 
+#X = data_set['age']
+#est = KBinsDiscretizer(n_bins=9, encode='ordinal').fit(X)
+#est.transform(X) 

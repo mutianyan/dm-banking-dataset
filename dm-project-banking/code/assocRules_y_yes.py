@@ -13,7 +13,7 @@ def getSupport(lst_check):
 		if lst_check == lst_val:
 			return sup
 
-dataset = pd.read_csv('../data/bank-full.csv', delimiter = ';', nrows = 40000)
+dataset = pd.read_csv('../data/bank-full.csv', delimiter = ';')
 # filter out all none y=yes rows
 dataset = dataset.loc[dataset['y'] == 'yes']
 dataset.drop('y', inplace = True, axis = 1)
@@ -21,6 +21,23 @@ dataset.to_csv('../data/all_y_yes.csv')
 
 header = list(dataset)
 array = dataset.values
+
+# discretion
+for key in ['age', 'balance', 'duration', 'pdays']:
+    if key == 'age':
+        dataset[key] = (dataset[key]-15)//5
+        continue
+    if key == 'balance':
+        dataset[key] = dataset[key]//5000
+        continue
+    if key == 'duration':
+        dataset[key] = dataset[key]//120
+        continue
+    if key == 'pdays':
+        dataset[key] = dataset[key]//30
+        continue
+
+dataset.to_csv('../data/all_y_yes_after_discretion.csv')
 
 # convert the dataframe attribute tyoe from int to str
 dataset[["age", "balance", "day", "duration", "campaign", "pdays", "previous"]] = dataset[["age", "balance", "day", "duration", "campaign", "pdays", "previous"]].astype(str) 
@@ -32,7 +49,7 @@ for col_name, column, col_index in zip (header, array.T, range(len(array.T))): #
 		array[row][col_index] = col_name +"_"+ str(value) + "" 
 
 # convert back to data frame
-new_df=pd.DataFrame(data = array, index = range(2896), columns= header)
+new_df=pd.DataFrame(data = array, index = range(5289), columns= header)
 
 # Apriori algo:
 
@@ -89,23 +106,6 @@ for lst in frequent_itemsets_drawing_list:
 support_vals = frequent_itemsets_drawing['support']
 
 lst =list(zip(frequent_itemsets_drawing_list, support_vals))
-
-
-# store in to csv
-I = pd.Index(attributes_drawing_list, name="rows")
-C = pd.Index(frequent_itemsets_drawing_list, name="columns")
-d_f = pd.DataFrame(index=C, columns=I)
-#print(d_f)
-#d_f.a.fillna(value=0, inplace=True)
-# write in the values
-for fp, index in zip(frequent_itemsets_drawing_list, range(len(frequent_itemsets_drawing_list))):
-	for item in fp:
-		d_f.loc[index,item] = getSupport(fp)
-		#print(1)
-
-#d_f.loc[['loan_no', 'default_no']] = 0
-
-d_f.to_csv("../graphs/frequent_patterns_y_yes.csv")
 
 # generate strong association rules
 

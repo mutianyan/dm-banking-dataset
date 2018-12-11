@@ -7,6 +7,8 @@ from mlxtend.preprocessing import TransactionEncoder
 from mlxtend.frequent_patterns import apriori
 
 dataset = pd.read_csv('../data/bank-full.csv', delimiter = ';', nrows = 40000)
+print(dataset[:0])
+
 header = list(dataset)
 array = dataset.values
 
