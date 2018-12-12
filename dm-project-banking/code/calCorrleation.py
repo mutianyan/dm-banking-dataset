@@ -8,6 +8,25 @@ import matplotlib.pyplot as plt
 import operator
 
 df = pd.read_csv('../data/afterDiscretized.csv')
+# cotinuous values to discrete values
+# discretization
+for key in ['age', 'balance', 'duration', 'pdays']:
+    if key == 'age':
+        df[key] = (df[key]-15)//5
+        continue
+    if key == 'balance':
+        df[key] = df[key]//5000
+        continue
+    if key == 'duration':
+        df[key] = df[key]//120
+        continue
+    if key == 'pdays':
+        df[key] = df[key]//30
+        continue
+
+df.to_csv('../data/all_after_discretion_of_continuous_val.csv')
+
+#df = pd.read_csv('../data/')
 # = list(df)
 
 

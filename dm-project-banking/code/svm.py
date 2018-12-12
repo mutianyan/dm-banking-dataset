@@ -39,8 +39,8 @@ def calScores(test_y, y_gnb, probas):
 
 
 
-df = pd.read_csv('../data/afterTransform.csv')
-
+#df = pd.read_csv('../data/afterTransform.csv')
+df = pd.read_csv('../data/age_job_month_previous_poutcome_balance_duration_pdays.csv')
 #using sliding window
 # using 
 
@@ -53,17 +53,17 @@ if True:
 	for train_index, test_index in zip(train_indices, test_indices):
 			train_data=array.take(train_index, axis=0)
 			test_data=array.take(test_index, axis=0)
-			train_y =  train_data[:, 10]
-			train_X = np.delete(train_data, 10, 1)
+			train_y =  train_data[:, 8] # 10
+			train_X = np.delete(train_data, 8, 1) #10
 
-			test_y =  test_data[:, 10]
-			test_X = np.delete(test_data, 10, 1)
+			test_y =  test_data[:, 8] # 10
+			test_X = np.delete(test_data, 8, 1) # 10
 
 			#model = svm.SVC(kernel='linear')
-			model = svm.LinearSVC() 
-			model.fit(train_X, train_y)
-			model.predict(test_X)
-			score = model.score(test_X, test_y)
+			model = svm.LinearSVC() # svm.LinearSVR() does not quiet well
+			model.fit(train_X, train_y) # fit the model according to the given training data
+			model.predict(test_X) # predict class labels for samples in test_X
+			score = model.score(test_X, test_y) # return the mean accuracy on the given test data and labels
 			total_score += score
 	mean_score = total_score / len(test_indices)
 	print(mean_score)
@@ -137,4 +137,17 @@ print(score)
 drawConfusionMatrix(y_gnb, test_y)
 drawPRGraph(train_X, train_y, test_X, test_y, probas)
 drawRoc(test_y, probas)
+"""
+
+# draw precision- recall curve
+
+
+
+"""
+			# get support vectors
+			print(model.support_vectors_)
+			# get indices of support vectors
+			print(model.support_) 
+			# get number of support vectors for each class
+			print(model.n_support_) 
 """

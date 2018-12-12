@@ -17,12 +17,12 @@ dataset = pd.read_csv('../data/bank-full.csv', delimiter = ';')
 # filter out all none y=yes rows
 dataset = dataset.loc[dataset['y'] == 'yes']
 dataset.drop('y', inplace = True, axis = 1)
-dataset.to_csv('../data/all_y_yes.csv')
+#dataset.to_csv('../data/all_y_yes.csv')
 
 header = list(dataset)
 array = dataset.values
 
-# discretion
+# discretization
 for key in ['age', 'balance', 'duration', 'pdays']:
     if key == 'age':
         dataset[key] = (dataset[key]-15)//5
