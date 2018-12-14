@@ -5,6 +5,8 @@ from sklearn import svm
 # plot
 import matplotlib.pyplot as plt
 import scikitplot as skplt
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
 
 
 def splitTrainAndTest(filename ,frac = 1):
@@ -90,10 +92,58 @@ def runSVM(filename):
 	score = model.score(test_X, test_y)
 	print('%s : ' % filename, score)
 	drawConfusionMatrix(y_gnb, test_y)
+	plt.savefig(filename+'.png')
+
+def runLR(filename):
+	df_train = pd.read_csv('../data/%s_train.csv' % filename)
+	df_test = pd.read_csv('../data/%s_test.csv' % filename)
+
+	train_y = df_train.y
+	df_train.drop('y', inplace=True, axis=1)
+	train_X = df_train
+
+	test_y = df_test.y
+	df_test.drop('y', inplace=True, axis=1)
+	test_X = df_test
+
+	#model
+	clf = LogisticRegression(penalty='l1', C=10000, class_weight='balanced', solver='saga', warm_start=True, n_jobs=3)
+
+	clf.fit(train_X, train_y)
+	pred_y = clf.predict(test_X)
+	score = clf.score(test_X, test_y)
+	drawConfusionMatrix(pred_y,test_y)
+
+def runRandomForest(filename):
+	df_train = pd.read_csv('../data/%s_train.csv' % filename)
+	df_test = pd.read_csv('../data/%s_test.csv' % filename)
+
+	train_y = df_train.y
+	df_train.drop('y', inplace=True, axis=1)
+	train_X = df_train
+
+	test_y = df_test.y
+	df_test.drop('y', inplace=True, axis=1)
+	test_X = df_test
+
+	#model
+	max_acc =0
+	for i in range(10,100,10):
+
+		forest = RandomForestClassifier(n_estimators=i, max_depth=3, max_features=8,
+	                                min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',
+	                                n_jobs=3)
+		forest.fit(train_X,train_y)
+		pred_y = forest.predict(test_X)
+		score = forest.score(test_X,test_y)
+		drawConfusionMatrix(pred_y,test_y)
 
 
 for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule4', 'expanded_all_rule4']:
 	runSVM(filename)
+	print(filename)
+	#runLR(filename)
+	#runRandomForest(filename)
 
 
 
