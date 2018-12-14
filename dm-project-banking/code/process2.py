@@ -1,6 +1,7 @@
 import pandas as pd
 from collections import Counter
 import numpy as np
+import matplotlib.pyplot as plt
 def transforForamt(dataset, diction):
     for i in range(len(dataset)):
         dataset[i] = diction[dataset[i]]
@@ -111,8 +112,28 @@ print(count_yes_rate(poutcome_count,poutcome_count_yes))
 print("y_count")
 print(countFrac(y_count,len(data_set)))
 
+def computeEntropy(counter_all,counter_yes):
+    splitInfo=0
+    total = sum(counter_all.values())
+    gain = 0
+    for key in counter_all.keys():
+        pi=counter_all[key]/total
+        gain += -pi*np.log(pi)
+        if counter_yes[key]:
+            p=counter_yes[key]/counter_all[key]
+            info_a=-p*np.log(p)-(1-p)*np.log(1-p)
+        else:
+            info_a=0
+        splitInfo += counter_all[key]/total*info_a
+    return gain/splitInfo
 
-def convert2Exl(counter_all,counter_yes,totalnum,title):
+
+
+
+
+def convert2Exl(counter_all,counter_yes,totalnum,title,keyOrder,graphtitle,graphname):
+    print(title+"  "+str(computeEntropy(counter_all,counter_yes)))
+
     dic={}
     for key in counter_all:
         val=[]
@@ -124,46 +145,108 @@ def convert2Exl(counter_all,counter_yes,totalnum,title):
         dic[key]=val
     df=pd.DataFrame(dic)
     df.to_excel(title)
+    bb=[]
+    bt=[]
+
+    ind = np.arange(len(keyOrder))
+    for i in keyOrder:
+
+        bt.append(dic[i][0]-dic[i][1]*dic[i][0])
+        bb.append(dic[i][1]*dic[i][0])
+
+    # plt.figure()
+    # p1 = plt.bar(ind, bb)
+    # p2 = plt.bar(ind, bt,
+    #              bottom=bb)
+    #
+    # plt.ylabel(property)
+    # plt.title(graphtitle)
+    # plt.xticks(ind, keyOrder)
+    # plt.xticks(rotation=75)
+    # plt.legend((p1[0], p2[0]), ('P(y|x)', 'P(x)'))
+    # plt.savefig(graphname)
+    #
+    # plt.show()
+
+    bl=[]
+    br=[]
+    for key in keyOrder:
+        bl.append(dic[key][0])
+        br.append(dic[key][1])
+    x = list(range(len(keyOrder)))
+    width=0.3
+    n=len(keyOrder)
+    plt.bar(x,bl,width=width,label='P(x)',fc='b')
+    for i in range(len(x)):
+        x[i] = x[i] + width
+    plt.bar(x,br,width=width,label='P(y|x)',tick_label = keyOrder,fc='g')
+    plt.xticks(rotation=75)
+    plt.legend()
+    plt.title(graphtitle)
+    plt.ylabel(property)
+    plt.savefig("lr"+graphname)
+    plt.show()
 
 
-convert2Exl(job_count,job_count_yes,len(data_set),'job_count.xls')
-convert2Exl(marital_count,marital_count_yes,len(data_set),'marital_count.xls')
-convert2Exl(education_count,education_count_yes,len(data_set),'education_count.xls')
-convert2Exl(default_count,default_count_yes,len(data_set),'default_count.xls')
-convert2Exl(housing_count,housing_count_yes,len(data_set),'housing_count.xls')
-convert2Exl(loan_count,loan_count_yes,len(data_set),'loan_count.xls')
-convert2Exl(contact_count,contact_count_yes,len(data_set),'contact_count.xls')
-convert2Exl(day_count,day_count_yes,len(data_set),'day_count.xls')
-convert2Exl(month_count,month_count_yes,len(data_set),'month_count.xls')
-convert2Exl(campaign_count,campaign_count_yes,len(data_set),'campaign_count.xls')
-convert2Exl(previous_count,previous_count_yes,len(data_set),'previous_count.xls')
-convert2Exl(poutcome_count,poutcome_count_yes,len(data_set),'poutcome_count.xls')
-convert2Exl(y_count,day_count_yes,len(data_set),'y_count.xls')
+    # name_list = ['Monday', 'Tuesday', 'Friday', 'Sunday']
+    # num_list = [1.5, 0.6, 7.8, 6]
+    # num_list1 = [1, 2, 3, 1]
+    # x = list(range(len(num_list)))
+    # total_width, n = 0.8, 2
+    # width = total_width / n
+    #
+    # plt.bar(x, num_list, width=width, label='boy', fc='y')
+    # for i in range(len(x)):
+    #     x[i] = x[i] + width
+    # plt.bar(x, num_list1, width=width, label='girl', tick_label=name_list, fc='r')
+    # plt.legend()
+
+
+
+convert2Exl(job_count,job_count_yes,len(data_set),'job_count.xls',
+            ['entrepreneur','management','admin.','self-employed','technician','services','blue-collar','housemaid','retired','student','unemployed','unknown'],
+            'job attribute distribution','job attribute distribution.png')
+convert2Exl(marital_count,marital_count_yes,len(data_set),'marital_count.xls',['married','single','divorced'],
+            'marital attribute distribution','marital attribute distribution.png')
+convert2Exl(education_count,education_count_yes,len(data_set),'education_count.xls',['tertiary','secondary','primary','unknown'],
+            'education attribute distribution','education attribute distribution.png')
+convert2Exl(default_count,default_count_yes,len(data_set),'default_count.xls',['yes','no'],'default attribute distribution','default attribute distribution.png')
+convert2Exl(housing_count,housing_count_yes,len(data_set),'housing_count.xls',['yes','no'],'housing attribute distribution','housing attribute distribution.png')
+convert2Exl(loan_count,loan_count_yes,len(data_set),'loan_count.xls',['yes','no'],'loan attribute distribution','loan attribute distribution.png')
+convert2Exl(contact_count,contact_count_yes,len(data_set),'contact_count.xls',['cellular','telephone','unknown'],'contact attribute distribution','contact attribute distribution.png')
+convert2Exl(day_count,day_count_yes,len(data_set),'day_count.xls',np.arange(1,32,1).tolist(),'day attribute distribution','day attribute distribution.png')
+convert2Exl(month_count,month_count_yes,len(data_set),'month_count.xls',['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'],'month attribute distribution','month attribute distribution.png')
+convert2Exl(campaign_count,campaign_count_yes,len(data_set),'campaign_count.xls',sorted(list(campaign_count.keys())),'campaign attribute distribution','campaign attribute distribution.png')
+convert2Exl(previous_count,previous_count_yes,len(data_set),'previous_count.xls',sorted(list(previous_count.keys())),'previous attribute distribution','previous attribute distribution.png')
+convert2Exl(poutcome_count,poutcome_count_yes,len(data_set),'poutcome_count.xls',['success','failure','other','unknown'],'poutcome attribute distribution','poutcome attribute distribution.png')
+# convert2Exl(y_count,day_count_yes,len(data_set),'y_count.xls')
 
 
 age=(data_set['age']-15)//5
 age_count=Counter(age)
 age_yes= (data_set_yes['age']-15)//5
 age_count_yes=Counter(age_yes)
-convert2Exl(age_count,age_count_yes,len(data_set),'age_count.xls')
+convert2Exl(age_count,age_count_yes,len(data_set),
+            'age_count.xls',sorted(list(age_count.keys())),
+            'age attribute distribution','age attribute distribution.png')
 
 balance = (data_set['balance'])//5000
 balance_count=Counter(balance)
 balance_yes = data_set_yes['balance']//5000
 balance_count_yes = Counter(balance_yes)
-convert2Exl(balance_count,balance_count_yes,len(data_set),'balance_count.xls')
+convert2Exl(balance_count,balance_count_yes,len(data_set),'balance_count.xls',sorted(list(balance_count.keys())),'balance attribute distribution(unit: 5000$)','balance attribute distribution.png')
 
 duration = data_set['duration']//120
 duration_count = Counter(duration)
 duration_yes = data_set_yes['duration']//120
 duration_count_yes = Counter(duration_yes)
-convert2Exl(duration_count,duration_count_yes,len(data_set),'duration_count.xls')
+convert2Exl(duration_count,duration_count_yes,len(data_set),'duration_count.xls',sorted(list(duration_count.keys())),'duration attribute distribution(unit: 2 minute)','duration attribute distribution.png')
 
 pdays = data_set['pdays']//30
 pdays_count = Counter(pdays)
 pdays_yes = data_set_yes['pdays']//30
 pdays_count_yes = Counter(pdays_yes)
-convert2Exl(pdays_count,pdays_count_yes,len(data_set),'pdays_count.xls')
+convert2Exl(pdays_count,pdays_count_yes,len(data_set),'pdays_count.xls',sorted(list(pdays_count.keys())),'pdays attribute distribution(unit: month)','pdays attribute distribution.png')
 
 def findbestattr(counteralllist,counteryeslist,attrlist):
     minlist={}
@@ -242,51 +325,6 @@ print("max")
 print(maxlist)
 print("min")
 print(minlist)
-
-dic={"Female":1,"Male":0}
-data_set['gender'] = transforForamt(data_set['gender'],dic)
-
-
-dic_2={"Yes":1,"No":0}
-data_set['Partner'] = transforForamt(data_set['Partner'],dic_2)
-data_set['Dependents'] = transforForamt(data_set['Dependents'],dic_2)
-data_set['PhoneService'] = transforForamt(data_set['PhoneService'],dic_2)
-data_set['PaperlessBilling'] = transforForamt(data_set['PaperlessBilling'],dic_2)
-data_set['Churn'] = transforForamt(data_set['Churn'],dic_2)
-
-dic_3={"No internet service":-1,"Yes":1, "No":0}
-data_set['OnlineSecurity'] = transforForamt(data_set['OnlineSecurity'],dic_3)
-data_set['OnlineBackup'] = transforForamt(data_set['OnlineBackup'],dic_3)
-data_set['DeviceProtection'] = transforForamt(data_set['DeviceProtection'],dic_3)
-data_set['TechSupport'] = transforForamt(data_set['TechSupport'],dic_3)
-data_set['StreamingTV'] = transforForamt(data_set['StreamingTV'],dic_3)
-data_set['StreamingMovies'] = transforForamt(data_set['StreamingMovies'],dic_3)
-
-dic_4={"No":0,"DSL":1, "Fiber optic":3}
-data_set['InternetService'] = transforForamt(data_set['InternetService'],dic_4)
-
-
-dic_5={"Month-to-month":1,"One year":2, "Two year":3}
-data_set['Contract'] = transforForamt(data_set['Contract'],dic_5)
-
-dic_6={"Electronic check":1,"Mailed check":2, "Bank transfer (automatic)":3, "Credit card (automatic)":4}
-data_set['PaymentMethod'] = transforForamt(data_set['PaymentMethod'],dic_6)
-
-dic_7={"No phone service":-1,"Yes":1, "No":0}
-data_set['MultipleLines'] = transforForamt(data_set['MultipleLines'],dic_7)
-
-
-
-data_suffle = data_set.sample(frac=1)
-train_ratio = 0.638
-train_idx = int(train_ratio * data_suffle.shape[0])
-
-train_data = data_suffle[0:train_idx]
-test_data = data_suffle[train_idx+1:-1]
-dataframe_train = pd.DataFrame(train_data)
-dataframe_train.to_csv("data/train.csv")
-dataframe_test = pd.DataFrame(test_data)
-dataframe_test.to_csv("data/test.csv")
 
 
 
