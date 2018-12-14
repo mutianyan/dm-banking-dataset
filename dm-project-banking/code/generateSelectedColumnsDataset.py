@@ -48,24 +48,32 @@ df2.to_csv('../data/all_rule2.csv', index = False)
 df3 = df[['duration', 'balance', 'pdays', 'poutcome', 'contact', 'housing', 'job', 'campaign', 'loan', 'marital', 'y']]
 df3.to_csv('../data/all_rule3.csv', index = False)
 
-# best so far 
+# best so far for SVM
 df4 = df[['month', 'duration', 'pdays', 'age', 'contact', 'housing', 'job', 'education', 'y']]
 df4.to_csv('../data/all_rule4.csv', index = False)
 """
+
+# best so far for Random Forest
+df5 = df[['month', 'duration', 'pdays', 'poutcome', 'contact', 'default', 'y']]
+df5.to_csv('../data/all_rule5.csv', index = False)
+"""
+
 
 
 # not used
 #splitTrainAndTest('all_rule1')
 #splitTrainAndTest('all_rule2')
 #splitTrainAndTest('all_rule3')
-#splitTrainAndTest('expanded_all_rule4')
+#splitTrainAndTest('expanded_all_rule4') # expanded and discritezted
+
 
 """ 
+splitTrainAndTest('all_rule5')
 # already generated
-splitTrainAndTest('all_rule4') # best so far
-splitTrainAndTest('all_after_expand_and_discretion')
-splitTrainAndTest('all_after_discretion_of_continuous_val')
-""" 
+#splitTrainAndTest('all_rule4') # best so far
+#splitTrainAndTest('all_after_expand_and_discretion')
+#splitTrainAndTest('all_after_discretion_of_continuous_val')
+
 
 def drawConfusionMatrix(y_gnb, test_y):
     skplt.metrics.plot_confusion_matrix(y_gnb, test_y, normalize=True)
@@ -116,7 +124,8 @@ def runLR(filename):
 
 	clf.fit(train_X, train_y)
 	pred_y = clf.predict(test_X)
-	score = clf.score(test_X, test_y)
+	prob = clf.predict_prob(test_X, test_y)
+	print('auc socre :', calAUC(test_y, prob))
 	drawConfusionMatrix(pred_y,test_y)
 
 def runRandomForest(filename):
@@ -133,25 +142,23 @@ def runRandomForest(filename):
 
 	#model
 	max_acc =0
-	for i in range(10,100,10):
-
-		forest = RandomForestClassifier(n_estimators=i, max_depth=3, max_features=8,
-	                                min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',
-	                                n_jobs=3)
-		forest.fit(train_X,train_y)
-		pred_y = forest.predict(test_X)
-		score = forest.score(test_X,test_y)
-		drawConfusionMatrix(pred_y,test_y)
+	#for i in range(10,100,10):
+	# n_estimators=, max_depth=3, max_features=8,min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',n_jobs=3
+	forest = RandomForestClassifier(n_estimators= 20, max_depth=3,min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',n_jobs=3)
+	forest.fit(train_X,train_y)
+	pred_y = forest.predict(test_X)
+	score = forest.score(test_X,test_y)
+	drawConfusionMatrix(pred_y,test_y)
 
 
-for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule4', 'expanded_all_rule4']:
+for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule5']:
 	#runSVM(filename)
 	print(filename)
-	#runLR(filename)
-	runRandomForest(filename)
+	runLR(filename)
+	#runRandomForest(filename)
 
 
-
+# 'all_rule4', 'expanded_all_rule4' are for svm
 
 
 
