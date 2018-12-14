@@ -55,6 +55,7 @@ df4.to_csv('../data/all_rule4.csv', index = False)
 #splitTrainAndTest('all_rule1')
 #splitTrainAndTest('all_rule2')
 #splitTrainAndTest('all_rule3')
+splitTrainAndTest('expanded_all_rule4')
 
 """ 
 # already generated
@@ -91,7 +92,7 @@ def runSVM(filename):
 	drawConfusionMatrix(y_gnb, test_y)
 
 
-for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule4']:
+for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule4', 'expanded_all_rule4']:
 	runSVM(filename)
 
 

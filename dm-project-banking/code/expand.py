@@ -11,6 +11,9 @@ for filename in ['all_rule4_train', 'all_rule4_test']:
 	data_set = pd.read_csv('../data/%s.csv' % filename)
 	col_names = list(data_set)
 
+
+	# need to convet type and then add prefix to the values
+	# unknown is not existing in the dataset anymore
 	if 'job' in col_names:
 		data_set.loc[data_set['job'] == 'unknown', 'job'] = 'unknown_job'
 	if 'education' in col_names:
