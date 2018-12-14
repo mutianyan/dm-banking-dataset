@@ -124,8 +124,8 @@ def runLR(filename):
 
 	clf.fit(train_X, train_y)
 	pred_y = clf.predict(test_X)
-	prob = clf.predict_prob(test_X, test_y)
-	print('auc socre :', calAUC(test_y, prob))
+	prob = clf.predict_proba(test_X)
+	print('auc socre :', calAUC(test_y, prob[:,1]))
 	drawConfusionMatrix(pred_y,test_y)
 
 def runRandomForest(filename):
@@ -147,6 +147,8 @@ def runRandomForest(filename):
 	forest = RandomForestClassifier(n_estimators= 20, max_depth=3,min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',n_jobs=3)
 	forest.fit(train_X,train_y)
 	pred_y = forest.predict(test_X)
+	prob = forest.predict_proba(test_X)
+	print('auc socre :', calAUC(test_y, prob[:, 1]))
 	score = forest.score(test_X,test_y)
 	drawConfusionMatrix(pred_y,test_y)
 
@@ -154,8 +156,8 @@ def runRandomForest(filename):
 for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule5']:
 	#runSVM(filename)
 	print(filename)
-	runLR(filename)
-	#runRandomForest(filename)
+	# runLR(filename)
+	runRandomForest(filename)
 
 
 # 'all_rule4', 'expanded_all_rule4' are for svm
