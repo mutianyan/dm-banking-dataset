@@ -9,7 +9,7 @@ import numpy as np
 
 # bank.csv from May 2008 to November 2010
 
-data_set = pd.read_csv('../data/bank-full.csv',delimiter = ';')
+data_set = pd.read_csv('../data/bank-full.csv',delimiter = ';', nrows = 1000)
 
 def transforForamt(dataset, diction):
     for i in range(len(dataset)):
@@ -29,7 +29,7 @@ data_set['y'] = transforForamt(data_set['y'],dic)
 #https://scikit-learn.org/stable/modules/preprocessing.html
 
 
-# change unkown values to different labels
+# change unknown values to different labels
 
 data_set.loc[data_set['job'] == 'unknown', 'job'] = 'unknown_job'
 data_set.loc[data_set['education'] == 'unknown', 'education'] = 'unknown_education'
@@ -101,4 +101,4 @@ for train_index, test_index in rolling_window_split(data_set, 20000,):
 # split up the data set 
 #https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html
 
-data_set.to_csv("../data/afterTransform.csv", index = False)
+data_set.to_csv("../data/afterTransform_play.csv", index = False)
