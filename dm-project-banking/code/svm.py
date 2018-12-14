@@ -1,6 +1,11 @@
 import pandas as pd
 import numpy as np
 from sklearn import svm
+from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import f1_score
+from sklearn.metrics import auc
+from sklearn.metrics import average_precision_score
+from sklearn.metrics import roc_auc_score
 
 # Packages for visuals
 import matplotlib.pyplot as plt
@@ -27,6 +32,8 @@ def drawRoc(test_y, probas):
     skplt.metrics.plot_roc(test_y, probas)
     plt.show()
 
+def calAUC(y_true, y_score):
+	return roc_auc_score(y_true, y_score)
 
 def calScores(test_y, y_gnb, probas):
     precision, recall, thresholds = skplt.metrics.precision_recall_curve(test_y, probas)
@@ -89,16 +96,21 @@ def runSVM(rolling_window = False, dataset= ''):
 		y_gnb = model.predict(test_X)
 		score = model.score(test_X, test_y)
 		print(score)
+		print(calAUC(test_y, score))
+
+		# drawing graphs
+		drawConfusionMatrix(y_gnb, test_y)
+		#drawPRGraph(train_X, train_y, test_X, test_y, probas)
+		#drawRoc(test_y, probas)
+
+		#calculate statistics
+		#calScores(test_y, y_gnb, probas)
+
+
 	# adjust the values of the parameters (combination of (C, gamma), kernel options, decision function shape)
 	# print the hyperplance (coefficient, intercept,)
 
-# drawing graphs
-drawConfusionMatrix(y_gnb, test_y)
-#drawPRGraph(train_X, train_y, test_X, test_y, probas)
-#drawRoc(test_y, probas)
 
-# calculate statistics
-#calScores(test_y, y_gnb, probas)
 
 
 

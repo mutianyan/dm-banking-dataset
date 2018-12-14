@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 from sklearn import svm
 from split import rolling_window_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
 
 # experiment adding and deleting columns' effect 
 
@@ -35,9 +37,9 @@ train_idx = int(train_ratio * data_suffle.shape[0])
 train_data = data_suffle[0:train_idx]
 test_data = data_suffle[train_idx+1:-1]
 dataframe_train = pd.DataFrame(train_data)
-dataframe_train.to_csv("../data/sampled_after_discr_train.csv")
+dataframe_train.to_csv("../data/sampled_after_discr_train.csv", index = False)
 dataframe_test = pd.DataFrame(test_data)
-dataframe_test.to_csv("../data/sampled_after_discr_test.csv")
+dataframe_test.to_csv("../data/sampled_after_discr_test.csv", index = False)
 
 print('train size: ', dataframe_train.shape, 'test size: ', dataframe_test.shape)
 
@@ -75,10 +77,10 @@ else:
 	df_train = pd.read_csv('../data/sampled_after_discr_train.csv')
 	df_test = pd.read_csv('../data/sampled_after_discr_test.csv')
 	# drop the first two empty indexing columns 
-	df_train.drop(df_train.columns[0], inplace = True, axis = 1)
-	df_test.drop(df_test.columns[0], inplace = True, axis = 1)
-	df_train.drop(df_train.columns[0], inplace = True, axis = 1)
-	df_test.drop(df_test.columns[0], inplace = True, axis = 1)
+	#df_train.drop(df_train.columns[0], inplace = True, axis = 1)
+	#df_test.drop(df_test.columns[0], inplace = True, axis = 1)
+	#df_train.drop(df_train.columns[0], inplace = True, axis = 1)
+	#df_test.drop(df_test.columns[0], inplace = True, axis = 1)
 	df_train_starter = df_train[[rank_list[0]]]
 	df_test_starter = df_test[[rank_list[0]]]
 
@@ -89,6 +91,7 @@ else:
 	print('name: ', rank_list[0])
 	# model = svm.SVC(kernel='linear') # time complexity is more than quadratic with more than a couple of 10000 samples.
 	model = svm.LinearSVC() # more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples
+	
 	model.fit(train_X, train_y)
 	y_gnb = model.predict(test_X)
 	score = model.score(test_X, test_y)
@@ -111,6 +114,10 @@ else:
 
 		# model = svm.SVC(kernel='linear') # time complexity is more than quadratic with more than a couple of 10000 samples.
 		model = svm.LinearSVC() # more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples
+		
+		#model = RandomForestClassifier()
+		
+		#model = LogisticRegression()
 		model.fit(train_X, train_y)
 		y_gnb = model.predict(test_X)
 		score = model.score(test_X, test_y)

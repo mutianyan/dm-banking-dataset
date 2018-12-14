@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import scikitplot as skplt
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import roc_auc_score
 
 
 def splitTrainAndTest(filename ,frac = 1):
@@ -57,7 +58,7 @@ df4.to_csv('../data/all_rule4.csv', index = False)
 #splitTrainAndTest('all_rule1')
 #splitTrainAndTest('all_rule2')
 #splitTrainAndTest('all_rule3')
-splitTrainAndTest('expanded_all_rule4')
+#splitTrainAndTest('expanded_all_rule4')
 
 """ 
 # already generated
@@ -70,6 +71,9 @@ def drawConfusionMatrix(y_gnb, test_y):
     skplt.metrics.plot_confusion_matrix(y_gnb, test_y, normalize=True)
     plt.show()
 
+
+def calAUC(y_true, y_score):
+	return roc_auc_score(y_true, y_score)
 
 # general function
 def runSVM(filename):
@@ -91,6 +95,7 @@ def runSVM(filename):
 	y_gnb = model.predict(test_X)
 	score = model.score(test_X, test_y)
 	print('%s : ' % filename, score)
+	print('auc socre :', calAUC(test_y, score))
 	drawConfusionMatrix(y_gnb, test_y)
 	plt.savefig(filename+'.png')
 
@@ -140,10 +145,10 @@ def runRandomForest(filename):
 
 
 for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule4', 'expanded_all_rule4']:
-	runSVM(filename)
+	#runSVM(filename)
 	print(filename)
 	#runLR(filename)
-	#runRandomForest(filename)
+	runRandomForest(filename)
 
 
 
