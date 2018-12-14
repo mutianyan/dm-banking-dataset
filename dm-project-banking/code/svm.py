@@ -6,9 +6,10 @@ from sklearn import svm
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set(font_scale=1.2)
 
-# Pickle package
+# Pickle package # NOT USED
 import pickle
 from split import rolling_window_split
+
 
 
 def drawConfusionMatrix(y_gnb, test_y):
@@ -44,48 +45,50 @@ df = pd.read_csv('../data/age_job_month_previous_poutcome_balance_duration_pdays
 #using sliding window
 # using 
 
-if True:
-	# without training beforehand until training for feeding each invidual window
-	print("using sliding window")
-	array = df.values
-	train_indices, test_indices =rolling_window_split(array, 10000,10)
-	total_score = 0
-	for train_index, test_index in zip(train_indices, test_indices):
-			train_data=array.take(train_index, axis=0)
-			test_data=array.take(test_index, axis=0)
-			train_y =  train_data[:, 8] # 10
-			train_X = np.delete(train_data, 8, 1) #10
+def runSVM(rolling_window = False, dataset= ''):
+	if rolling_window:
+		# without training beforehand until training for feeding each invidual window
+		print("using sliding window")
+		array = df.values
+		train_indices, test_indices =rolling_window_split(array, 10000,10)
+		total_score = 0
+		for train_index, test_index in zip(train_indices, test_indices):
+				train_data=array.take(train_index, axis=0)
+				test_data=array.take(test_index, axis=0)
+				train_y =  train_data[:, 8] # 10
+				train_X = np.delete(train_data, 8, 1) #10
 
-			test_y =  test_data[:, 8] # 10
-			test_X = np.delete(test_data, 8, 1) # 10
+				test_y =  test_data[:, 8] # 10
+				test_X = np.delete(test_data, 8, 1) # 10
 
-			#model = svm.SVC(kernel='linear')
-			model = svm.LinearSVC() # svm.LinearSVR() does not quiet well
-			model.fit(train_X, train_y) # fit the model according to the given training data
-			model.predict(test_X) # predict class labels for samples in test_X
-			score = model.score(test_X, test_y) # return the mean accuracy on the given test data and labels
-			total_score += score
-	mean_score = total_score / len(test_indices)
-	print(mean_score)
-else:
-	print("not using sliding window")
-	df_train = pd.read_csv('../data/afterTransform_train.csv')
-	df_test = pd.read_csv('../data/afterTransform_test.csv')
+				#model = svm.SVC(kernel='linear')
+				model = svm.LinearSVC() # svm.LinearSVR() does not quiet well
+				model.fit(train_X, train_y) # fit the model according to the given training data
+				model.predict(test_X) # predict class labels for samples in test_X
+				score = model.score(test_X, test_y) # return the mean accuracy on the given test data and labels
+				total_score += score
+		mean_score = total_score / len(test_indices)
+		print(mean_score)
+	else:
+		# split the dataset 
+		print("not using sliding window")
+		df_train = pd.read_csv('../data/afterTransform_train.csv')
+		df_test = pd.read_csv('../data/afterTransform_test.csv')
 
-	train_y = df_train.y
-	df_train.drop('y', inplace = True, axis= 1)
-	train_X = df_train
+		train_y = df_train.y
+		df_train.drop('y', inplace = True, axis= 1)
+		train_X = df_train
 
-	test_y = df_test.y
-	df_test.drop('y', inplace = True, axis = 1)
-	test_X = df_test
+		test_y = df_test.y
+		df_test.drop('y', inplace = True, axis = 1)
+		test_X = df_test
 
-	# model = svm.SVC(kernel='linear') # time complexity is more than quadratic with more than a couple of 10000 samples.
-	model = svm.LinearSVC() # more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples
-	model.fit(train_X, train_y)
-	y_gnb = model.predict(test_X)
-	score = model.score(test_X, test_y)
-	print(score)
+		# model = svm.SVC(kernel='linear') # time complexity is more than quadratic with more than a couple of 10000 samples.
+		model = svm.LinearSVC() # more flexibility in the choice of penalties and loss functions and should scale better to large numbers of samples
+		model.fit(train_X, train_y)
+		y_gnb = model.predict(test_X)
+		score = model.score(test_X, test_y)
+		print(score)
 	# adjust the values of the parameters (combination of (C, gamma), kernel options, decision function shape)
 	# print the hyperplance (coefficient, intercept,)
 

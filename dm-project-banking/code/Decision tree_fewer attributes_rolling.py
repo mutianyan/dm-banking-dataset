@@ -12,7 +12,7 @@ from sklearn.metrics import average_precision_score
 
 
 names = ['age', 'job', 'balance', 'month', 'duration', 'pdays',	'previous',	'poutcome',	'y']
-data = pd.read_csv('new_age_job_month_previous_poutcome_balance_duration_pdays.csv',
+data = pd.read_csv('../data/age_job_month_previous_poutcome_balance_duration_pdays.csv',
                    header=None, index_col=False, names=names, low_memory=False)
 X = data.iloc[:, :-1].values
 y = data.iloc[:, -1:].values
