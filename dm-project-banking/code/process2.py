@@ -9,6 +9,7 @@ def transforForamt(dataset, diction):
 
 
 data_set = pd.read_csv('../data/bank-full.csv',delimiter = ';')
+
 def countFrac(counter,totalnum):
     dic={}
     for key in counter.keys():
@@ -24,6 +25,23 @@ def count_yes_rate(counter_all,counter_yes):
     return dic
 
 data_set_yes = data_set[data_set['y']=='yes']
+data_age_all = data_set['age']
+data_age_yes = data_set_yes['age']
+bplot = plt.boxplot([data_age_all.values,data_age_yes.values], patch_artist=True, labels=['all','y=yes'])
+
+plt.title('attribute "age" box plot')
+
+colors = ['lightblue', 'lightgreen']
+for patch, color in zip(bplot['boxes'], colors):
+    patch.set_facecolor(color)  # 为不同的箱型图填充不同的颜色
+
+
+plt.xlabel('data set')
+plt.ylabel('"age" values')
+plt.show()
+plt.savefig("age box plot.png")
+
+
 #age;"job";"marital";"education";"default";"balance";"housing";"loan";"contact";"day";"month";"duration";"campaign";"pdays";"previous";"poutcome";"y"
 age_count = Counter(data_set['age'])
 age_count_yes = Counter(data_set_yes['age'])

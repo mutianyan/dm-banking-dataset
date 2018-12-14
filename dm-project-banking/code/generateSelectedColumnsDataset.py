@@ -8,6 +8,8 @@ import scikitplot as skplt
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import f1_score
 
 
 def splitTrainAndTest(filename ,frac = 1):
@@ -76,8 +78,11 @@ splitTrainAndTest('all_rule5')
 
 
 def drawConfusionMatrix(y_gnb, test_y):
-    skplt.metrics.plot_confusion_matrix(y_gnb, test_y, normalize=True)
-    plt.show()
+	# tn, fp, fn, tp = confusion_matrix(test_y, y_gnb).ravel()
+	# print(" TN: "+ str(tn/(tn+fp))+" fp: "+ str(fp/(tn+fp))+ " fn: "+ str(fn/(fn+tp))+" tp: "+ str(tp/(fn+tp)))
+	skplt.metrics.plot_confusion_matrix(y_gnb, test_y, normalize=True)
+	plt.show()
+
 
 
 def calAUC(y_true, y_score):
@@ -126,6 +131,7 @@ def runLR(filename):
 	pred_y = clf.predict(test_X)
 	prob = clf.predict_proba(test_X)
 	print('auc socre :', calAUC(test_y, prob[:,1]))
+	print('f1_score:', f1_score(test_y, pred_y))
 	drawConfusionMatrix(pred_y,test_y)
 
 def runRandomForest(filename):
@@ -142,15 +148,41 @@ def runRandomForest(filename):
 
 	#model
 	max_acc =0
-	#for i in range(10,100,10):
-	# n_estimators=, max_depth=3, max_features=8,min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',n_jobs=3
-	forest = RandomForestClassifier(n_estimators= 20, max_depth=3,min_samples_split=10, bootstrap=True,class_weight='balanced_subsample',n_jobs=3)
-	forest.fit(train_X,train_y)
+	if filename == 'all_after_discretion_of_continuous_val':
+		i=30
+	if filename == 'all_after_expand_and_discretion':
+		i=20
+	if filename == 'all_rule5':
+		i=40
+	forest = RandomForestClassifier(n_estimators=i,max_depth=5,min_samples_split=10, bootstrap=True,n_jobs=3)
+	print("n_estimators "+str(i))
+	forest.fit(train_X, train_y)
 	pred_y = forest.predict(test_X)
 	prob = forest.predict_proba(test_X)
 	print('auc socre :', calAUC(test_y, prob[:, 1]))
-	score = forest.score(test_X,test_y)
-	drawConfusionMatrix(pred_y,test_y)
+	print('f1_score:', f1_score(test_y,pred_y))
+
+	score = forest.score(test_X, test_y)
+	drawConfusionMatrix(pred_y, test_y)
+
+def runDecisitonTree(filename):
+	df_train = pd.read_csv('../data/%s_train.csv' % filename)
+	df_test = pd.read_csv('../data/%s_test.csv' % filename)
+
+	train_y = df_train.y
+	df_train.drop('y', inplace=True, axis=1)
+	train_X = df_train
+
+	test_y = df_test.y
+	df_test.drop('y', inplace=True, axis=1)
+	test_X = df_test
+
+
+
+
+
+
+
 
 
 for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule5']:
@@ -158,6 +190,8 @@ for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and
 	print(filename)
 	# runLR(filename)
 	runRandomForest(filename)
+
+
 
 
 # 'all_rule4', 'expanded_all_rule4' are for svm
