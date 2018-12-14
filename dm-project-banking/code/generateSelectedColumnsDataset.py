@@ -54,8 +54,16 @@ df4.to_csv('../data/all_rule4.csv', index = False)
 """
 
 # best so far for Random Forest
-df5 = df[['month', 'duration', 'pdays', 'poutcome', 'contact', 'default', 'y']]
-df5.to_csv('../data/all_rule5.csv', index = False)
+#df5 = df[['month', 'duration', 'pdays', 'poutcome', 'contact', 'default', 'y']]
+#df5.to_csv('../data/all_rule5.csv', index = False)
+
+
+# best so far for LR
+df6 = df[['month', 'duration', 'pdays', 'age', 'contact', 'housing', 'campaign', 'marital', 'default', 'y']]
+df6.to_csv('../data/all_rule6.csv', index = False)
+
+# best so far for DT
+
 """
 
 
@@ -68,7 +76,8 @@ df5.to_csv('../data/all_rule5.csv', index = False)
 
 
 """ 
-splitTrainAndTest('all_rule5')
+#splitTrainAndTest('all_rule5')
+splitTrainAndTest('all_rule6')
 # already generated
 #splitTrainAndTest('all_rule4') # best so far
 #splitTrainAndTest('all_after_expand_and_discretion')
@@ -157,7 +166,7 @@ for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and
 	#runSVM(filename)
 	print(filename)
 	# runLR(filename)
-	runRandomForest(filename)
+	#runRandomForest(filename)
 
 
 # 'all_rule4', 'expanded_all_rule4' are for svm
