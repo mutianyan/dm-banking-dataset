@@ -198,7 +198,7 @@ def convert2Exl(counter_all,counter_yes,totalnum,title,keyOrder,graphtitle,graph
     for i in range(len(x)):
         x[i] = x[i] + width
     plt.bar(x,br,width=width,label='P(y|x)',tick_label = keyOrder,fc='g')
-    plt.xticks(rotation=75)
+    plt.xticks(rotation=45)
     plt.legend()
     plt.title(graphtitle)
     plt.ylabel(property)

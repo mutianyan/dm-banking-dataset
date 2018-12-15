@@ -135,7 +135,7 @@ def runLR(filename):
 	test_X = df_test
 
 	#model
-	clf = LogisticRegression(penalty='l1', C=10000, class_weight='balanced', solver='saga', warm_start=True, n_jobs=3)
+	clf = LogisticRegression()
 
 	clf.fit(train_X, train_y)
 	pred_y = clf.predict(test_X)
@@ -143,6 +143,7 @@ def runLR(filename):
 	print('auc socre :', calAUC(test_y, prob[:,1]))
 	print('f1_score:', f1_score(test_y, pred_y))
 	print('list: ',lift_score(test_y,pred_y))
+	print('score:' +str(clf.score(test_X,test_y)))
 	drawConfusionMatrix(pred_y,test_y)
 
 def runRandomForest(filename):
@@ -174,7 +175,7 @@ def runRandomForest(filename):
 	print('f1_score:', f1_score(test_y,pred_y,labels=[1],average = None))
 	print('list: ', lift_score(test_y, pred_y))
 
-	score = forest.score(test_X, test_y)
+	print("score: "+str(forest.score(test_X, test_y)))
 	drawConfusionMatrix(pred_y, test_y)
 
 def runDecisitonTree(filename):
@@ -200,12 +201,12 @@ def runDecisitonTree(filename):
 for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion']:
 	#runSVM(filename)
 	print(filename)
-	# runLR(filename)
-	runRandomForest(filename)
+	runLR(filename)
+	# runRandomForest(filename)
 print('selected attri')
-runRandomForest('all_rule5')
+# runRandomForest('all_rule5')
 
-# runLR('all_rule6')
+runLR('all_rule6')
 
 
 # 'all_rule4', 'expanded_all_rule4' are for svm

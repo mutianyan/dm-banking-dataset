@@ -109,7 +109,7 @@ class precess2limitedattr:
 
         return self.data_set,label
 
-keylist =['age','job','month','previous','poutcome', 'balance','duration', 'pdays']
+keylist =['age','job','marital','education','default','housing','loan','contact','day','month','poutcome','balance','duration','pdays']
 title ='age_job_month_previous_poutcome_balance_duration_pdays'
 data_set = precess2limitedattr(keylist,title)
 data_set.getdata()
