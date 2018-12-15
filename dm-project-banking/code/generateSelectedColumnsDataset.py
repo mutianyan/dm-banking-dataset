@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import f1_score
+from mlxtend.evaluate import lift_score
 
 
 def splitTrainAndTest(filename ,frac = 1):
@@ -141,6 +142,7 @@ def runLR(filename):
 	prob = clf.predict_proba(test_X)
 	print('auc socre :', calAUC(test_y, prob[:,1]))
 	print('f1_score:', f1_score(test_y, pred_y))
+	print('list: ',lift_score(test_y,pred_y))
 	drawConfusionMatrix(pred_y,test_y)
 
 def runRandomForest(filename):
@@ -169,7 +171,8 @@ def runRandomForest(filename):
 	pred_y = forest.predict(test_X)
 	prob = forest.predict_proba(test_X)
 	print('auc socre :', calAUC(test_y, prob[:, 1]))
-	print('f1_score:', f1_score(test_y,pred_y))
+	print('f1_score:', f1_score(test_y,pred_y,labels=[1],average = None))
+	print('list: ', lift_score(test_y, pred_y))
 
 	score = forest.score(test_X, test_y)
 	drawConfusionMatrix(pred_y, test_y)
@@ -194,13 +197,15 @@ def runDecisitonTree(filename):
 
 
 
-for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion', 'all_rule5']:
+for filename in ['all_after_discretion_of_continuous_val', 'all_after_expand_and_discretion']:
 	#runSVM(filename)
 	print(filename)
 	# runLR(filename)
-	#runRandomForest(filename)
+	runRandomForest(filename)
+print('selected attri')
+runRandomForest('all_rule5')
 
-
+# runLR('all_rule6')
 
 
 # 'all_rule4', 'expanded_all_rule4' are for svm
